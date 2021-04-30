@@ -1,5 +1,8 @@
 #include "covid.h"
 #include <stdio.h>
+#include <stdlib.h>
+
+#define Tablesize 211
 
 int main (void) {
     ll N; // Total number of stations
@@ -23,6 +26,50 @@ int main (void) {
         P[i].station_no = initial_station_number;
     }
 
+    // Initialize all the stations
+    Station* *Stationlist = (Station**)malloc(N*sizeof(Station*)); 
+    for (int i = 0; i < N; i++) {
+        Stationlist[i]->PeopleList = CreateHashTable(Tablesize);
+    }
+
+    // Initial Positions of all people
+    for(int i = 0 ; i < K ; i++)
+    {
+        scanf("%lld", &P[i].station_no);
+        int status = 
+        separateHash(Stationlist[i]->PeopleList, P[i].ID, status, '+');
+    }
+
+    // List of Covid Positive
+    ll L, D, X;
+    scanf("%lld", &L);
+    for(int i = 0 ; i<L; i++)
+    {
+        int person;
+        scanf("%lld", &person);
+        P[person-1].type = covid_positive;
+        scanf("%lld", &D);
+        scanf("%lld", &X);
+    }
+
+    // Accept Movements of all people for X days
+    for(int i = 0 ; i < X ; i++)
+    {
+        char query;
+        printf("Enter Movement of person (Person ID, Initial Station, Final Station)? (y/n)");
+        scanf("%c", &query);
+        if (query == 'y'){
+            ll personID, U, V;
+            scanf("%lld %lld %lld", &personID, &U, &V);
+            P[i].station_no = V;
+            MovePerson(personID, Stationlist[U-1], Stationlist[V-1]);
+        }
+        else
+        {
+            continue;
+        }
+        
+    }
 
 
     return 0;
