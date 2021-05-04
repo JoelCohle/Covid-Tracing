@@ -3,6 +3,7 @@
 
 #define ll long long int
 
+// Hashtable headers
 typedef struct sepchainHT * HashTable;
 typedef struct Person * PtrtoPerson;
 typedef long long int Element;
