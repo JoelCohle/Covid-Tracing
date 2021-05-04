@@ -3,11 +3,16 @@
 
 #define ll long long int
 
-// Hashtable headers
+#include <limits.h>
+
+#define INFINITY LLONG_MAX // to use in dijkstra
+#define UNKNOWN -1
+
 typedef struct sepchainHT * HashTable;
 typedef struct Person * PtrtoPerson;
 typedef long long int Element;
 typedef int Key;
+typedef long long int Vertex;
 
 struct sepchainHT{
     int TableSize;
@@ -42,7 +47,7 @@ typedef struct Station {
     ll no_of_people;
     ll danger_value;
     enum type_of_person MostInfectiousType;
-    Node* ptr_to_ll_of_neighbours;
+    Node* ptr_to_ll_of_neighbours; // pointer to the linked list of meighbours
 } Station;
 
 typedef struct Node {
@@ -52,6 +57,21 @@ typedef struct Node {
     struct Node* next; // ptr to next node
 } Node;
 
+
+/////// For Dijkstra ////////
+
+typedef struct linkedlistNode_for_SPTable_PreviousVertex {
+    ll station_no;
+    struct linkedlistNode_for_SPTable_PreviousVertex* next;
+} ll_node;
+
+typedef struct stSPTable {
+    int *pKnown;
+    double *pdistance_to_source;
+    ll_node** pPrevious_vertex;
+} SPTable;
+
+////////////////////
 
 Graph* create_graph(ll no_of_stations, ll no_of_roads, ll total_no_of_people);
 void insert_edge(Graph* G, ll source, ll destination, ll length);
