@@ -8,6 +8,8 @@
 #define INFINITY LLONG_MAX // to use in dijkstra
 #define UNKNOWN -1
 
+///////////// Hashtable Code /////////////////////
+
 typedef struct sepchainHT * HashTable;
 typedef struct Person * PtrtoPerson;
 typedef long long int Element;
@@ -22,6 +24,10 @@ struct sepchainHT{
 HashTable CreateHashTable(int TableSize);
 Key Identityhash(Element x, int n);
 int separateHash(HashTable myHT, Element x, int status, char query);
+
+//////////////////////////////////////////////////
+
+void MovePerson(int personID, Station* station1, Station* station2, Person* *personlist);
 
 enum type_of_person {covid_positive, primary_contact, secondary_contact, safe};
 

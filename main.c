@@ -62,7 +62,7 @@ int main (void) {
             ll personID, U, V;
             scanf("%lld %lld %lld", &personID, &U, &V);
             P[i].station_no = V;
-            MovePerson(personID, Stationlist[U-1], Stationlist[V-1]);
+            MovePerson(personID, Stationlist[U-1], Stationlist[V-1], &P);
         }
         else
         {
