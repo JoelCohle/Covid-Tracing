@@ -15,7 +15,7 @@ int main (void) {
     for (ll i = 0; i < M; i++) {
         ll U, V, W;
         scanf("%lld %lld %lld", &U, &V, &W);
-        insert_bidirectional_road(G, U, V, W); // In the graph G, between U and V inserts a road of length W
+        insert_bidirectional_road(G, U, V, W, 0); // In the graph G, between U and V inserts a road of length W and danger value 0
     }
 
     Person* P = initialize_people(K);
