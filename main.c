@@ -24,6 +24,7 @@ int main (void) {
         ll initial_station_number;
         scanf("%lld", &initial_station_number);
         P[i].station_no = initial_station_number;
+        P[i].ID = i+1;
     }
 
     // Initialize all the stations
@@ -50,6 +51,7 @@ int main (void) {
         P[person-1].type = covid_positive;
         scanf("%lld", &D);
         scanf("%lld", &X);
+        MovePerson(person, Stationlist[P[i].station_no - 1], Stationlist[P[i].station_no - 1], &P);
     }
 
     // Accept Movements of all people for X days

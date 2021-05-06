@@ -23,7 +23,7 @@ struct sepchainHT{
 
 HashTable CreateHashTable(int TableSize);
 Key Identityhash(Element x, int n);
-int separateHash(HashTable myHT, Element x, int status, char query);
+PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query);
 
 //////////////////////////////////////////////////
 
@@ -51,8 +51,7 @@ typedef struct Graph {
 typedef struct Station {
     HashTable PeopleList;
     ll no_of_people;
-    ll danger_value;
-    enum type_of_person MostInfectiousType;
+    double danger_value;
     Node* ptr_to_ll_of_neighbours; // pointer to the linked list of meighbours
 } Station;
 

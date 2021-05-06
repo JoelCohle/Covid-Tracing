@@ -34,15 +34,13 @@ Key Identityhash(Element x, int n)
         return -1;
 }
 
-int separateHash(HashTable myHT, Element x, int status, char query)
+PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query)
 {
     Key k = Identityhash(x, myHT->TableSize);
     PtrtoPerson Position = myHT->pStart[k];
-    int count = 0;
     while ((Position->next != NULL) && (Position->next->ID != x))
     {
         Position = Position->next;
-        count++;
     }
 
     if (query == '+')
@@ -62,14 +60,14 @@ int separateHash(HashTable myHT, Element x, int status, char query)
     if (query == '-')
     {
         if (Position->next == NULL)
-            return -1;
+            return NULL;
         PtrtoPerson Temp = Position->next;
         Position->next = Position->next->next;
         free(Temp);
     }
     if (Position->next == NULL && query == '?')
-        return -1;
-    return count;
+        return NULL;
+    return Position->next;
 }
 
 #include <limits.h>
