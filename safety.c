@@ -59,9 +59,6 @@ int Update(Station S, PtrtoPerson P)
 int Safety_Value(Graph *G, int S, int V, PtrtoPerson P)
 {
     P->station_no = V;
-    Add(G->arr_of_stations[V], P);
-    Delete(G->arr_of_stations[S], P);
-
     int safetyVal_S, safetyVal_V;
 
     safetyVal_S = Update(G->arr_of_stations[S], P);
