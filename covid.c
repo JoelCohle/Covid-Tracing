@@ -67,3 +67,25 @@ Person* initialize_people(ll no_of_people) {
 
     return P;
 }
+
+// removes the edge from source to destination
+void remove_edge(Graph* G, ll source, ll destination) {
+    Node* p = G->arr_of_stations[source].ptr_to_ll_of_neighbours;
+    Node* t;
+    while (p != NULL) {
+        if (p->next->station_no == destination) {
+            t = p->next;
+            p->next = t->next;
+            free(t);
+            return;
+        }
+
+        p = p->next;
+    }
+}
+
+void remove_bidirectional_road(Graph* G, ll source, ll destination) {
+    remove_edge(G, source, destination);
+    remove_edge(G, destination, source);
+    G->no_of_roads --;
+}
