@@ -106,8 +106,3 @@ int Safety_Value(Graph *G, int S, int V, PtrtoPerson P)
 
     return safetyVal_V;
 }
-
-int main(void)
-{
-    return 0;
-}
