@@ -56,46 +56,6 @@ int Update(Station S, PtrtoPerson P)
     return safety_value;
 }
 
-void Add(Station S, PtrtoPerson P)
-{
-    Key K = Identityhash(P->ID, S.no_of_people);
-    PtrtoPerson Position = S.PeopleList->pStart[K]->next;
-    while ((Position != NULL) && (Position->ID != P->ID))
-        Position = Position->next;
-
-    if (Position == NULL)
-    {
-        Position = (PtrtoPerson)malloc(sizeof(Person));
-        assert(P != NULL);
-
-        Position->next = S.PeopleList->pStart[K]->next;
-        Position->ID = P->ID;
-        Position->station_no = P->station_no;
-        Position->type = P->type;
-        S.PeopleList->pStart[K]->next = Position;
-    }
-    return;
-}
-
-void Delete(Station S, PtrtoPerson P)
-{
-    Key K;
-    PtrtoPerson Search, Prev;
-
-    K = Identityhash(P->ID, S.no_of_people);
-
-    Search = S.PeopleList->pStart[K];
-
-    while (Search != NULL)
-    {
-        if (Search->next != NULL && Search->next->ID == P->ID)
-        {
-            Search->next = Search->next->next;
-            free(Search->next);
-        }
-    }
-}
-
 int Safety_Value(Graph *G, int S, int V, PtrtoPerson P)
 {
     P->station_no = V;
@@ -109,3 +69,4 @@ int Safety_Value(Graph *G, int S, int V, PtrtoPerson P)
 
     return safetyVal_V;
 }
+
