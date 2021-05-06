@@ -53,6 +53,7 @@ void insert_edge(Graph* G, ll source, ll destination, ll length) {
 void insert_bidirectional_road(Graph* G, ll U, ll V, ll W) {
     insert_edge(G, U, V, W); // Insert an edge from U to V
     insert_edge(G, V, U, W); // Insert an edge from V to U
+    G->no_of_roads++;
 }
 
 // Initializes an array (size = number of people) of people 
