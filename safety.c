@@ -8,31 +8,34 @@ int Update(Station S, PtrtoPerson P)
 {
     int covid, prim, second;
 
-    if (S.MostInfectiousType > P->type)
+    // just in case P is safe and goes to place with primary so update P
+    for (int i = 0; i < S.no_of_people; i++)
     {
-        if (S.MostInfectiousType - P->type > 1)
+        PtrtoPerson Current = S.PeopleList->pStart[i];
+        while (Current != NULL)
         {
-            S.MostInfectiousType = P->type;
-            for (int i = 0; i < S.no_of_people; i++)
-            {
-                PtrtoPerson Current = S.PeopleList->pStart[i];
-                while (Current != NULL)
-                {
-                    Current->type = P->type - 1;
-                    Current = Current->next;
-                }
-            }
+            if (Current->type < P->type)
+                P->type = Current->type;
+
+            Current = Current->next;
         }
     }
 
-    else
+    // Updating all people
+    for (int i = 0; i < S.no_of_people; i++)
     {
-        if (P->type - S.MostInfectiousType > 1)
+        PtrtoPerson Current = S.PeopleList->pStart[i];
+
+        while (Current != NULL)
         {
-            P->type = S.MostInfectiousType - 1;
+            if (Current->type - P->type > 1)
+                Current->type = P->type - 1;
+
+            Current = Current->next;
         }
     }
 
+    // Finding the number of covid, primary and secondary people;
     for (int i = 0; i < S.no_of_people; i++)
     {
         PtrtoPerson Current = S.PeopleList->pStart[i];
@@ -46,11 +49,11 @@ int Update(Station S, PtrtoPerson P)
                 second++;
             Current = Current->next;
         }
-
-        int safety_value = covid + (prim / 5) + (second / 10);
-
-        return safety_value;
     }
+    
+    int safety_value = covid + (prim / 5) + (second / 10);
+
+    return safety_value;
 }
 
 void Add(Station S, PtrtoPerson P)
