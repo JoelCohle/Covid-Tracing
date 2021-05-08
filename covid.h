@@ -81,7 +81,7 @@ typedef struct Set {
 int isConnected(Graph* G);
 void GetPath (ll* previous_vertex, ll destination, path_info* path, ll* index);
 path_info* dijkstra (Graph* G, ll source, ll destination);
-top_three_routes (Graph* G, ll source, ll destination);
+void print_top_three_routes (Graph* G, ll source, ll destination);
 
 ////////////////////
 
