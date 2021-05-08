@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
  
+
+ 
+typedef int Element;
+typedef float Key;
+
 // PQueue
 typedef stNodepq PQueue;
 typedef stNodepq Nodepq;
@@ -44,6 +49,13 @@ void Priority_Enqueue(PQueue** Q, element u, key P)
     }
 }
 
+//Return the value at head
+// the highest priority element in the queue without removing it from the queue
+Element ExtractMin(PQueue** Q)
+{
+    return (*Q)->n;
+}
+ 
 // Function to check is list is empty
 int isPQueueEmpty(PQueue** Q)
 {
