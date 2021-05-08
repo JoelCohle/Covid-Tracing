@@ -92,13 +92,14 @@ int main(void)
     // List of Covid Positive
     ll L, D, X;
     scanf("%lld", &L);
+    scanf("%lld", &D);
+    scanf("%lld", &X);
     for (int i = 0; i < L; i++)
     {
         int person;
         scanf("%lld", &person);
         P[person - 1].type = covid_positive;
-        scanf("%lld", &D);
-        scanf("%lld", &X);
+      
         MovePerson(person, Stationlist[P[i].station_no - 1], Stationlist[P[i].station_no - 1], &P);
     }
 
