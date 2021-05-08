@@ -1,23 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
  
-
- 
 typedef int Element;
 typedef float Key;
 
 // PQueue
 typedef stNodepq PQueue;
 typedef stNodepq Nodepq;
+
 struct stNodepq{
-    element n;
-    key k;  // Lower values indicate higher k
+    Element n;
+    Key k;  // Lower values indicate higher k
     Nodepq* pNext;
  
 };
 
-// Function to Enqueue according to key 
-void Priority_Enqueue(PQueue** Q, element u, key P)
+PQueue* CreateEmptyPriorityQueue()
+{
+    PQueue* temp = (PQueue*)malloc(sizeof(PQueue));
+    temp->n = NULL;
+    temp->k = NULL;
+    temp->pNext = NULL;
+ 
+    return temp;
+}
+
+// Function to Create A New PQueue
+PQueue* newNode(Element u, Key P)
+{
+    PQueue* temp = (PQueue*)malloc(sizeof(PQueue));
+    temp->n = u;
+    temp->k = P;
+    temp->pNext = NULL;
+ 
+    return temp;
+}
+
+// Function to Enqueue according to Key
+void Priority_Enqueue(PQueue** Q, Element u, Key P)
 {
     PQueue* start = (*head);
  
