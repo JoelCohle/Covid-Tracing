@@ -4,10 +4,11 @@
 typedef int Element;
 typedef float Key;
 
-// PQueue
-typedef stNodepq PQueue;
-typedef stNodepq Nodepq;
 
+typedef struct stNodepq PQueue;
+typedef struct stNodepq Nodepq;
+
+// PQueue
 struct stNodepq{
     Element n;
     Key k;  // Lower values indicate higher k
@@ -15,11 +16,10 @@ struct stNodepq{
  
 };
 
+
 PQueue* CreateEmptyPriorityQueue()
 {
     PQueue* temp = (PQueue*)malloc(sizeof(PQueue));
-    temp->n = NULL;
-    temp->k = NULL;
     temp->pNext = NULL;
  
     return temp;
