@@ -97,8 +97,7 @@ int main(void)
         P[person - 1].type = covid_positive;
         scanf("%lld", &D);
         scanf("%lld", &X);
-        Station* station = Stationlist[P[i].station_no - 1];
-        MovePerson(person, station, station, &P);
+        MovePerson(person, Stationlist[P[i].station_no - 1], Stationlist[P[i].station_no - 1], &P);
     }
 
     // Accept Movements of all people for X days
