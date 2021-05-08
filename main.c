@@ -84,8 +84,9 @@ int main(void)
     {
         scanf("%lld", &P[i].station_no);
         int status = safe;
-        separateHash(Stationlist[i]->PeopleList, P[i].ID, status, '+');
          P[i].ID = i + 1;
+        separateHash(Stationlist[i]->PeopleList, P[i].ID, status, '+');
+        
     }
 
     // List of Covid Positive
