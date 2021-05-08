@@ -64,13 +64,13 @@ int main(void)
 
     Person *P = initialize_people(K);
     // set the initial station number of people using the user input
-    for (int i = 0; i < K; i++)
+   /* for (int i = 0; i < K; i++)
     {
         ll initial_station_number;
         scanf("%lld", &initial_station_number);
         P[i].station_no = initial_station_number;
         P[i].ID = i + 1;
-    }
+    }*/ 
 
     // Initialize all the stations
     Station **Stationlist = (Station **)malloc(N * sizeof(Station *));
@@ -85,6 +85,7 @@ int main(void)
         scanf("%lld", &P[i].station_no);
         int status = safe;
         separateHash(Stationlist[i]->PeopleList, P[i].ID, status, '+');
+         P[i].ID = i + 1;
     }
 
     // List of Covid Positive
