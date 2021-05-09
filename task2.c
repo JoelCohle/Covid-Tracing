@@ -102,7 +102,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
         printf("%lld ", safest_path_1->path_vertices[i]);
     }
     printf("\nLength: %lld\n", safest_path_1->length);
-    printf("Danger value: %lld\n", safest_path_1->danger_value);
+    printf("Danger value: %lf\n", safest_path_1->danger_value);
 
 
     printf("2nd best path: ");
@@ -110,7 +110,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
         printf("%lld ", safest_path_2->path_vertices[i]);
     }
     printf("\nLength: %lld\n", safest_path_2->length);
-    printf("Danger value: %lld\n", safest_path_2->danger_value);
+    printf("Danger value: %lf\n", safest_path_2->danger_value);
 
 
     printf("3rd best path: ");
@@ -118,7 +118,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
         printf("%lld ", safest_path_3->path_vertices[i]);
     }
     printf("\nLength: %lld\n", safest_path_3->length);
-    printf("Danger value: %lld\n", safest_path_3->danger_value);
+    printf("Danger value: %lf\n", safest_path_3->danger_value);
 
 
     // free the dynamically allocated memory
@@ -199,7 +199,7 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
 
 void GetPath (ll* previous_vertex, ll destination, path_info* path, ll* index) {
     if (previous_vertex[destination] != UNKNOWN) {
-        GetPath(previous_vertex, previous_vertex[destination], path, *index);
+        GetPath(previous_vertex, previous_vertex[destination], path, index);
     }
 
     path->path_vertices[(*index)++] = destination;

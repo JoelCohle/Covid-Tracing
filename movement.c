@@ -5,7 +5,7 @@
 #include "covid.h"
 
 
-void MovePerson(int personID, Station* station1, Station* station2, PtrtoPerson *person_list)
+void MovePerson(ll personID, Station* station1, Station* station2, PtrtoPerson *person_list)
 {
     // Deleting Person from station1
     separateHash(station1->PeopleList, personID, person_list[personID-1]->type, '-');
@@ -63,7 +63,7 @@ double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
     L1:
 
     // Finding the number of covid, primary and secondary people;
-    for (int i = 0; i < S->PeopleList->TableSize; i++)
+    for (ll i = 0; i < S->PeopleList->TableSize; i++)
     {
         PtrtoPerson Current = S->PeopleList->pStart[i]->next;
         while (Current != NULL)

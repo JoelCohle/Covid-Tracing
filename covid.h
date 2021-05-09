@@ -11,7 +11,7 @@
 typedef struct Person * PtrtoPerson;
 typedef struct sepchainHT * HashTable;
 typedef long long int Element;
-typedef int Key;
+typedef long long int Key;
 typedef long long int Vertex;
 typedef struct Station Station;
 
@@ -36,7 +36,7 @@ typedef struct Graph {
 
 typedef struct Node {
     ll length; // length of the edge
-    ll danger_value; // danger value of the edge
+    double danger_value; // danger value of the edge
     ll station_no;
     struct Node* next; // ptr to next node
 } Node;
@@ -53,23 +53,23 @@ struct Station {
 ///////////// Hashtable Code /////////////////////
 
 struct sepchainHT{
-    int TableSize;
+    ll TableSize;
     PtrtoPerson *pStart;
 };
 
-HashTable CreateHashTable(int TableSize);
-Key Identityhash(Element x, int n);
+HashTable CreateHashTable(ll TableSize);
+Key Identityhash(Element x, ll n);
 PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query);
 
 //////////////////////////////////////////////////
 
-void MovePerson(int personID, Station* station1, Station* station2, Person* *personlist);
+void MovePerson(ll personID, Station* station1, Station* station2, Person* *personlist);
 double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list);
 
 /////// For task2 ////////
 
 typedef struct path_info {
-    ll danger_value;
+    double danger_value;
     ll length;
     ll no_of_vertices_in_the_path;
     ll* path_vertices;
@@ -77,7 +77,7 @@ typedef struct path_info {
 
 // a struct to return the danger value and the length of the removed edge
 typedef struct Set {
-    ll danger_value;
+    double danger_value;
     ll length;
 } Set;
 
@@ -89,13 +89,14 @@ void print_top_three_routes (Graph* G, ll source, ll destination);
 ////////////////////
 
 Graph* create_graph(ll no_of_stations, ll no_of_roads, ll total_no_of_people);
-void insert_edge(Graph* G, ll source, ll destination, ll length, ll danger_value);
-void insert_bidirectional_road(Graph* G, ll source, ll destination, ll length, ll danger_value);
+void insert_edge(Graph* G, ll source, ll destination, ll length, double danger_value);
+void insert_bidirectional_road(Graph* G, ll source, ll destination, ll length, double danger_value);
 Person* initialize_people(ll no_of_people);
 
 Set remove_edge(Graph* G, ll source, ll destination);
 Set remove_bidirectional_road(Graph* G, ll source, ll destination);
 
 
+void delete_graph(Graph* G);
 
 #endif

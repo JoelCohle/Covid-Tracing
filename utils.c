@@ -3,9 +3,9 @@
 #include <assert.h>
 #include "covid.h"
 
-HashTable CreateHashTable(int TableSize)
+HashTable CreateHashTable(ll TableSize)
 {
-    int i = 0;
+    ll i = 0;
     HashTable myHt;
 
     myHt = (HashTable)malloc(sizeof(struct sepchainHT));
@@ -26,7 +26,7 @@ HashTable CreateHashTable(int TableSize)
     return myHt;
 }
 
-Key Identityhash(Element x, int n)
+Key Identityhash(Element x, ll n)
 {
     if (n)
         return x % n;

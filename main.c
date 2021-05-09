@@ -19,29 +19,29 @@ void print_status(int status)
     return;
 }
 
-void print_list_at_station(int station_num, int N, PtrtoPerson *person_list)
+void print_list_at_station(ll station_num, ll N, PtrtoPerson *person_list)
 {
     printf("List of People at the station with their statuses:\n");
-    for (int i = 0; i < N; i++)
+    for (ll i = 0; i < N; i++)
     {
         if (person_list[i]->station_no == station_num)
         {
-            int status = person_list[i]->type;
-            printf("Person %d: ", i + 1);
+            ll status = person_list[i]->type;
+            printf("Person %lld: ", i + 1);
             print_status(status);
         }
     }
 }
 
-void print_full_list(PtrtoPerson *P, int K)
+void print_full_list(PtrtoPerson *P, ll K)
 {
     printf("List of People at the station with their statuses:\n");
-        for (int i = 0; i < K; i++)
+        for (ll i = 0; i < K; i++)
         {
             if (P[i]->type == primary_contact || P[i]->type == secondary_contact)
             {
-                int status = P[i]->type;
-                printf("Person %d: ", i + 1);
+                ll status = P[i]->type;
+                printf("Person %lld: ", i + 1);
                 print_status(status);
             }
         }
@@ -55,14 +55,14 @@ int main(void)
     scanf("%lld %lld %lld", &N, &M, &K);
 
 
-    //Graph *G = create_graph(N, M, K); // create an empty graph
+    Graph *G = create_graph(N, M, K); // create an empty graph
 
-    // for (ll i = 0; i < M; i++)
-    // {
-    //     ll U, V, W;
-    //     scanf("%lld %lld %lld", &U, &V, &W);
-    //     insert_bidirectional_road(G, U, V, W, 0); // In the graph G, between U and V inserts a road of length W and danger value 0
-    // }
+    for (ll i = 0; i < M; i++)
+    {
+        ll U, V, W;
+        scanf("%lld %lld %lld", &U, &V, &W);
+        insert_bidirectional_road(G, U, V, W, 0); // In the graph G, between U and V inserts a road of length W and danger value 0
+    }
 
 
     //Initialize all the stations
@@ -74,10 +74,10 @@ int main(void)
         Stationlist[i]->PeopleList = CreateHashTable(Tablesize);
     }
 
-    HashTable myHT = CreateHashTable(Tablesize);
-    separateHash(myHT, 3, safe, '+');
-    // Initial Positions of all people
+    // HashTable myHT = CreateHashTable(Tablesize);
+    // separateHash(myHT, 3, safe, '+');
     
+    // Initial Positions of all people
     Person *P = initialize_people(K);
     for (ll i = 0; i < K; i++)
     {
@@ -105,8 +105,8 @@ int main(void)
     for (ll i = 0; i < X; i++)
     {
         printf("Enter all movements on day %lld\n", i + 1);
-        int num;
-        scanf("%d", &num);
+        ll num;
+        scanf("%lld", &num);
         for (ll i = 0; i < num; i++)
         {
             ll personID, U, V;
@@ -116,29 +116,29 @@ int main(void)
         }
 
         printf("Enter number of queries\n");
-        int numq;
-        scanf("%d", &numq);
+        ll numq;
+        scanf("%lld", &numq);
         for (ll i = 0; i < numq; i++)
         {
             char query[10];
             scanf("%s", query);
             if (strcmp(query, "status") == 0)
             {
-                int personID;
-                scanf("%d", &personID);
+                ll personID;
+                scanf("%lld", &personID);
                 int status = P[personID - 1].type;
                 print_status(status);
             }
             if (strcmp(query, "location") == 0)
             {
-                int personID;
-                scanf("%d", &personID);
+                ll personID;
+                scanf("%lld", &personID);
                 printf("Station Number %lld\n", P[personID - 1].station_no);
             }
             if (strcmp(query, "list") == 0)
             {
-                int station_num;
-                scanf("%d", &station_num);
+                ll station_num;
+                scanf("%lld", &station_num);
                 print_list_at_station(station_num, K, &P);
             }
         }

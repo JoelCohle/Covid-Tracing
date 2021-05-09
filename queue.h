@@ -6,8 +6,8 @@ typedef struct stNodepq PQueue; // Priority Queue using Min Heaps  or Fibncaii h
 typedef struct stNodeq Nodeq;  // Node in Queue
 typedef struct stNodepq Nodepq; // Node in Priority Queue
 
-typedef int Element;
-typedef float Key;
+typedef long long int Element;
+typedef long long int Key;
 
 
 
