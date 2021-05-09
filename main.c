@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #define Tablesize 211
 
@@ -53,62 +54,60 @@ int main(void)
     ll K; // Total number of people
     scanf("%lld %lld %lld", &N, &M, &K);
 
-    Graph *G = create_graph(N, M, K); // create an empty graph
 
-    for (ll i = 0; i < M; i++)
-    {
-        ll U, V, W;
-        scanf("%lld %lld %lld", &U, &V, &W);
-        insert_bidirectional_road(G, U, V, W, 0); // In the graph G, between U and V inserts a road of length W and danger value 0
-    }
+    //Graph *G = create_graph(N, M, K); // create an empty graph
 
-    Person *P = initialize_people(K);
-    // set the initial station number of people using the user input
-   /* for (int i = 0; i < K; i++)
-    {
-        ll initial_station_number;
-        scanf("%lld", &initial_station_number);
-        P[i].station_no = initial_station_number;
-        P[i].ID = i + 1;
-    }*/ 
+    // for (ll i = 0; i < M; i++)
+    // {
+    //     ll U, V, W;
+    //     scanf("%lld %lld %lld", &U, &V, &W);
+    //     insert_bidirectional_road(G, U, V, W, 0); // In the graph G, between U and V inserts a road of length W and danger value 0
+    // }
 
-    // Initialize all the stations
+
+    //Initialize all the stations
     Station **Stationlist = (Station **)malloc(N * sizeof(Station *));
-    for (int i = 0; i < N; i++)
+    assert(Stationlist != NULL);
+    for (ll i = 0; i < N; i++)
     {
+        Stationlist[i] = (Station*)malloc(sizeof(Station));
         Stationlist[i]->PeopleList = CreateHashTable(Tablesize);
     }
 
+    HashTable myHT = CreateHashTable(Tablesize);
+    separateHash(myHT, 3, safe, '+');
     // Initial Positions of all people
-    for (int i = 0; i < K; i++)
+    
+    Person *P = initialize_people(K);
+    for (ll i = 0; i < K; i++)
     {
         scanf("%lld", &P[i].station_no);
-        int status = safe;
         P[i].ID = i + 1;
-        separateHash(Stationlist[i]->PeopleList, P[i].ID, status, '+');
+        separateHash(Stationlist[P[i].station_no - 1]->PeopleList, P[i].ID, safe, '+');
     }
 
-    // List of Covid Positive
+    //List of Covid Positive
+
     ll L, D, X;
     scanf("%lld", &L);
     scanf("%lld", &D);
     scanf("%lld", &X);
-    for (int i = 0; i < L; i++)
+    for (ll i = 0; i < L; i++)
     {
         ll person;
         scanf("%lld", &person);
         P[person - 1].type = covid_positive;
-      
+
         MovePerson(person, Stationlist[P[i].station_no - 1], Stationlist[P[i].station_no - 1], &P);
     }
 
     // Accept Movements of all people for X days
-    for (int i = 0; i < X; i++)
+    for (ll i = 0; i < X; i++)
     {
-        printf("Enter all movements on day %d\n", i + 1);
+        printf("Enter all movements on day %lld\n", i + 1);
         int num;
         scanf("%d", &num);
-        for (int i = 0; i < num; i++)
+        for (ll i = 0; i < num; i++)
         {
             ll personID, U, V;
             scanf("%lld %lld %lld", &personID, &U, &V);
@@ -119,7 +118,7 @@ int main(void)
         printf("Enter number of queries\n");
         int numq;
         scanf("%d", &numq);
-        for (int i = 0; i < numq; i++)
+        for (ll i = 0; i < numq; i++)
         {
             char query[10];
             scanf("%s", query);

@@ -19,18 +19,18 @@ void MovePerson(int personID, Station* station1, Station* station2, PtrtoPerson 
 
     //Adding person to station2
     PtrtoPerson person = separateHash(station2->PeopleList, personID, person_list[personID-1]->type, '+');
-    int danger_value = Update(station2, person, person_list);
+    double danger_value = Update(station2, person, person_list);
     station2->no_of_people++;
     station2->danger_value = danger_value;
     
 }
 
-int Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
+double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
 {
-    int covid, prim, second;
+    ll covid = 0, prim = 0, second = 0;
 
     // just in case P is safe and goes to place with primary so update P
-    for (int i = 0; i < S->PeopleList->TableSize; i++)
+    for (ll i = 0; i < S->PeopleList->TableSize; i++)
     {
         PtrtoPerson Current = S->PeopleList->pStart[i]->next;
         while (Current != NULL)
@@ -41,8 +41,10 @@ int Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
                 while ((Position->next != NULL) && (Position->next->ID != P->ID)){
                     Position = Position->next;
                 }
-                Position->next->type = Current->type + 1;
-                person_list[P->ID-1]->type = Current->type + 1;
+                if (Position->next->ID == P->ID){
+                    Position->next->type = Current->type + 1;
+                    person_list[P->ID-1]->type = Current->type + 1;
+                }
                 goto L1;
             }
 
@@ -76,7 +78,7 @@ int Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
         }
     }
     
-    int danger_value = covid + (prim / 5) + (second / 10);
+    double danger_value = (double)covid + ((double)prim / 5) + ((double)second / 10);
 
     return danger_value;
 }

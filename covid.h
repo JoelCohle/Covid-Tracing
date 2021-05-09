@@ -64,7 +64,7 @@ PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query);
 //////////////////////////////////////////////////
 
 void MovePerson(int personID, Station* station1, Station* station2, Person* *personlist);
-int Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list);
+double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list);
 
 /////// For task2 ////////
 
