@@ -64,7 +64,6 @@ int main(void)
         insert_bidirectional_road(G, U - 1, V - 1, W, 0); // In the graph G, between U and V inserts a road of length W and danger value 0
     }
 
-
     //Initialize all the stations
     Station **Stationlist = (Station **)malloc(N * sizeof(Station *));
     assert(Stationlist != NULL);
