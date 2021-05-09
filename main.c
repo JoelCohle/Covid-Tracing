@@ -73,9 +73,6 @@ int main(void)
         Stationlist[i] = (Station*)malloc(sizeof(Station));
         Stationlist[i]->PeopleList = CreateHashTable(Tablesize);
     }
-
-    // HashTable myHT = CreateHashTable(Tablesize);
-    // separateHash(myHT, 3, safe, '+');
     
     PtrtoPerson *P = initialize_people(K);
     for (ll i = 0; i < K; i++)
@@ -85,39 +82,42 @@ int main(void)
         separateHash(Stationlist[P[i]->station_no - 1]->PeopleList, P[i]->ID, safe, '+');
     }
 
-    //List of Covid Positive
-
+    ////////////////////////////
+    // List of Covid Positive //
+    ////////////////////////////
     ll L, D, X;
-    scanf("%lld", &L);
-    scanf("%lld", &D);
-    scanf("%lld", &X);
+    scanf("%lld", &L);     // Number of people in the list
+    scanf("%lld", &D);     // Day the list was released
+    scanf("%lld", &X);     // Number of days before we want to find Possible contacts
     for (ll i = 0; i < L; i++)
     {
         ll person;
-        scanf("%lld", &person);
+        scanf("%lld", &person);                 // Id of the person
         if (person > K){
-            printf("Invalid Entry \n");
+            printf("Invalid Entry \n");         // If such a person doesnt exist
             continue;
         }
-        P[person - 1]->type = covid_positive;
-        ll location = P[person - 1]->station_no;
+        P[person - 1]->type = covid_positive;   // Assigning covid_positive status to the person
+        ll location = P[person - 1]->station_no;// Finding current Location of the person
 
         MovePerson(person, Stationlist[location - 1], Stationlist[location - 1], P);
     }
 
-    // Accept Movements of all people for X days
-
+    ///////////////////////////////////////////////
+    // Accept Movements of all people for X days //
+    ///////////////////////////////////////////////
     for (ll i = 0; i < X; i++)
     {
         printf("Enter all movements on day %lld\n", i + 1);
         ll num;
-        scanf("%lld", &num);
+        scanf("%lld", &num);    // Enter number of movements
         for (ll i = 0; i < num; i++)
         {
             ll personID, U, V;
-            scanf("%lld %lld %lld", &personID, &U, &V);
-            if (P[personID-1]->station_no != U){
-                printf("Invalid movement \n");
+            scanf("%lld %lld %lld", &personID, &U, &V); // (PersonID, Initial_station, Final_station)
+            if (P[personID-1]->station_no != U)
+            {
+                printf("Invalid movement \n");          // If person isn't currently in that station
                 continue;
             }
             P[personID-1]->station_no = V;
@@ -131,30 +131,32 @@ int main(void)
         {
             char query[10];
             scanf("%s", query);
-            if (strcmp(query, "status") == 0)
+            if (strcmp(query, "status") == 0)       // To find status of a given Person
             {
                 ll personID;
                 scanf("%lld", &personID);
                 int status = P[personID - 1]->type;
                 print_status(status);
             }
-            if (strcmp(query, "location") == 0)
+            if (strcmp(query, "location") == 0)     // To find current location of a given Person
             {
                 ll personID;
                 scanf("%lld", &personID);
                 printf("Station Number %lld\n", P[personID - 1]->station_no);
             }
-            if (strcmp(query, "list") == 0)
+            if (strcmp(query, "list") == 0)         // To print list of all people at a given station
             {
                 ll station_num;
                 scanf("%lld", &station_num);
                 print_list_at_station(station_num, K, P);
             }
         }
-        print_full_list(P, K);
+        printf("List of all primary and secondary contacts on Day %lld:\n", i);
+        print_full_list(P, K);      // To print list of all primary and secondary contacts on Day 'i' (TASK 1)
         
         printf("Proceeding to the next day\n");
     }
+    printf("\nWe have found all Primary and Secondary Contacts of List L of people and carried out necessary user queries\n");
 
     return 0;
 }
