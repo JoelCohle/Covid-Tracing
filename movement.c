@@ -5,7 +5,7 @@
 #include "covid.h"
 
 
-void MovePerson(ll personID, Station* station1, Station* station2, PtrtoPerson *person_list)
+void MovePerson(Graph* G, ll personID, Station* station1, Station* station2, PtrtoPerson *person_list)
 {
     // Deleting Person from station1
     separateHash(station1->PeopleList, personID, person_list[personID-1]->type, '-');
@@ -23,6 +23,8 @@ void MovePerson(ll personID, Station* station1, Station* station2, PtrtoPerson *
     station2->no_of_people++;
     station2->danger_value = danger_value;
     
+
+    update_danger_value_of_edge(G, station1, station2);
 }
 
 double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
@@ -83,3 +85,25 @@ double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
     return danger_value;
 }
 
+
+void update_danger_value_of_edge(Graph* G, Station* s1, Station* s2) {
+    Node* p = G->arr_of_stations[s1->station_no];
+    while (p != NULL) {
+        if (p->station_no == s2->station_no) {
+            p->danger_value = (s1->danger_value) + (s2->danger_value);
+            break;
+        }
+        p = p->next;
+    }
+
+    p = G->arr_of_stations[s2->station_no];
+    while (p != NULL) {
+        if (p->station_no == s1->station_no) {
+            p->danger_value = (s1->danger_value) + (s2->danger_value);
+            break;
+        }
+        p = p->next;
+    }
+
+    return;
+}

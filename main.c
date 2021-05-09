@@ -61,7 +61,7 @@ int main(void)
     {
         ll U, V, W;
         scanf("%lld %lld %lld", &U, &V, &W);
-        insert_bidirectional_road(G, U, V, W, 0); // In the graph G, between U and V inserts a road of length W and danger value 0
+        insert_bidirectional_road(G, U - 1, V - 1, W, 0); // In the graph G, between U and V inserts a road of length W and danger value 0
     }
 
 
@@ -72,6 +72,7 @@ int main(void)
     {
         Stationlist[i] = (Station*)malloc(sizeof(Station));
         Stationlist[i]->PeopleList = CreateHashTable(Tablesize);
+        Stationlist[i]->station_no = i;
     }
     
     PtrtoPerson *P = initialize_people(K);
@@ -100,7 +101,7 @@ int main(void)
         P[person - 1]->type = covid_positive;   // Assigning covid_positive status to the person
         ll location = P[person - 1]->station_no;// Finding current Location of the person
 
-        MovePerson(person, Stationlist[location - 1], Stationlist[location - 1], P);
+        MovePerson(G, person, Stationlist[location - 1], Stationlist[location - 1], P);
     }
 
     ///////////////////////////////////////////////
@@ -121,7 +122,7 @@ int main(void)
                 continue;
             }
             P[personID-1]->station_no = V;
-            MovePerson(personID, Stationlist[U - 1], Stationlist[V - 1], P);
+            MovePerson(G, personID, Stationlist[U - 1], Stationlist[V - 1], P);
         }
 
         printf("Enter number of queries\n");
@@ -131,6 +132,12 @@ int main(void)
         {
             char query[10];
             scanf("%s", query);
+            if (strcmp(query, "top_3_safest_and_shortest_paths") == 0) {
+                ll source, destination;
+                printf("Enter the Station number of the source and the destination: ");
+                scanf("%lld %lld", &source, &destination);
+                print_top_three_routes(G, source - 1, destination - 1);
+            }
             if (strcmp(query, "status") == 0)       // To find status of a given Person
             {
                 ll personID;
@@ -157,6 +164,9 @@ int main(void)
         printf("Proceeding to the next day\n");
     }
     printf("\nWe have found all Primary and Secondary Contacts of List L of people and carried out necessary user queries\n");
+
+
+    delete_graph(G);
 
     return 0;
 }

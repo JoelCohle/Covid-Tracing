@@ -1,5 +1,5 @@
 #include "covid.h"
-#include "queue.h"
+#include "pqueue.h"
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
@@ -148,7 +148,7 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
     }
     distance_to_source[source] = 0;
 
-    PQueue* Q = CreateEmptyPriorityQueue();
+    PQueue* Q = CreateEmptyPriorityQueue(n);
     for (ll i = 0; i < n; i++) {
         Priority_Enqueue(Q, (Element) i, (Key) distance_to_source[i]);
     }
@@ -157,7 +157,7 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
         ll u = ExtractMin(Q);
         isKnown[u] = 1;
 
-        Node* temp = G->arr_of_stations[u].ptr_to_ll_of_neighbours;
+        Node* temp = G->arr_of_stations[u];
         while (temp != NULL) {
             ll v = temp->station_no;
             if (isKnown[v] == 0 && distance_to_source[u] != INFINITY) {
@@ -185,7 +185,7 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
     // find the danger value of the path
     path->danger_value = 0;
     for (ll i = 0; i < path->no_of_vertices_in_the_path; i++) {
-        Node* p = G->arr_of_stations[source].ptr_to_ll_of_neighbours;
+        Node* p = G->arr_of_stations[source];
         while (p != NULL) {
             if (p->station_no == destination) {
                 (path->danger_value) += (p->danger_value);
@@ -193,6 +193,8 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
             p = p->next;
         }
     }
+
+    delete_pqueue(Q);
 
     return path;
 }
@@ -211,7 +213,7 @@ void GetPath (ll* previous_vertex, ll destination, path_info* path, ll* index) {
 // returns 1 if the graph is connected, else 0. (undirected graph)
 int isConnected(Graph* G) {
     for (ll i = 0; i < G->no_of_stations; i++) {
-        if (G->arr_of_stations[i].ptr_to_ll_of_neighbours == NULL) {
+        if (G->arr_of_stations[i] == NULL) {
             return 0;
         }
     }
