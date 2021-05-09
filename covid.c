@@ -25,7 +25,7 @@ Graph* create_graph(ll no_of_stations, ll no_of_roads, ll total_no_of_people) {
 }
 
 // Inserts an edge of length 'length' from 'source' to 'destination' 
-void insert_edge(Graph* G, ll source, ll destination, ll length, ll danger_value) {
+void insert_edge(Graph* G, ll source, ll destination, ll length, double danger_value) {
     
     Node* temp = G->arr_of_stations[source].ptr_to_ll_of_neighbours;
 
@@ -51,7 +51,7 @@ void insert_edge(Graph* G, ll source, ll destination, ll length, ll danger_value
     }
 }
 
-void insert_bidirectional_road(Graph* G, ll U, ll V, ll W, ll danger_value) {
+void insert_bidirectional_road(Graph* G, ll U, ll V, ll W, double danger_value) {
     insert_edge(G, U, V, W, danger_value); // Insert an edge from U to V
     insert_edge(G, V, U, W, danger_value); // Insert an edge from V to U
     G->no_of_roads++;
@@ -105,4 +105,16 @@ Set remove_bidirectional_road(Graph* G, ll source, ll destination) {
     set = remove_edge(G, destination, source);
     G->no_of_roads --;
     return set;
+}
+
+
+void delete_graph(Graph* G) {
+    for (ll i = 0; i < G->no_of_stations; i++) {
+        Node* p = G->arr_of_stations[i].ptr_to_ll_of_neighbours;
+        while (p != NULL) {
+            
+
+            p = p->next;
+        }
+    }
 }
