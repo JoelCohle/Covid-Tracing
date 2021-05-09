@@ -1,6 +1,7 @@
 #include "covid.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <assert.h>
 
 // Creates an empty graph with the given info and returns a pointer to the graph
 Graph* create_graph(ll no_of_stations, ll no_of_roads, ll total_no_of_people) {

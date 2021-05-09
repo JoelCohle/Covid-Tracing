@@ -125,15 +125,4 @@ int peek(struct Stack* stack)
         return INT_MIN;
     return stack->array[stack->top];
 }
- 
 
-int main()
-{
-
-    int i; 
-
-    scanf("%d",&i ); 
-    struct Stack* stack = makeStack(i);
- 
-    return 0;
-}

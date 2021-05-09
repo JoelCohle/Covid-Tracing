@@ -8,7 +8,7 @@
 void MovePerson(int personID, Station* station1, Station* station2, PtrtoPerson *person_list)
 {
     // Deleting Person from station1
-    separateHash(station1, personID, person_list[personID-1]->type, '-');
+    separateHash(station1->PeopleList, personID, person_list[personID-1]->type, '-');
     if (person_list[personID-1]->type == covid_positive)
         station1->danger_value--;
     if (person_list[personID-1]->type == primary_contact)
@@ -18,7 +18,7 @@ void MovePerson(int personID, Station* station1, Station* station2, PtrtoPerson 
     station1->no_of_people--;
 
     //Adding person to station2
-    PtrtoPerson person = separateHash(station2, personID, person_list[personID-1]->type, '+');
+    PtrtoPerson person = separateHash(station2->PeopleList, personID, person_list[personID-1]->type, '+');
     int danger_value = Update(station2, person, person_list);
     station2->no_of_people++;
     station2->danger_value = danger_value;
@@ -81,13 +81,3 @@ int Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
     return danger_value;
 }
 
-int Safety_Value(Graph *G, int S, int V, PtrtoPerson P)
-{
-    P->station_no = V;
-    int safetyVal_S, safetyVal_V;
-
-    safetyVal_S = Update(G->arr_of_stations[S], P);
-    safetyVal_V = Update(G->arr_of_stations[V], P);
-
-    return safetyVal_V;
-}

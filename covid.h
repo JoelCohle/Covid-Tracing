@@ -8,26 +8,13 @@
 #define INFINITY LLONG_MAX // to use in dijkstra
 #define UNKNOWN -1
 
-///////////// Hashtable Code /////////////////////
-
-typedef struct sepchainHT * HashTable;
 typedef struct Person * PtrtoPerson;
+typedef struct sepchainHT * HashTable;
 typedef long long int Element;
 typedef int Key;
 typedef long long int Vertex;
+typedef struct Station Station;
 
-struct sepchainHT{
-    int TableSize;
-    PtrtoPerson *pStart;
-};
-
-HashTable CreateHashTable(int TableSize);
-Key Identityhash(Element x, int n);
-PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query);
-
-//////////////////////////////////////////////////
-
-void MovePerson(int personID, Station* station1, Station* station2, Person* *personlist);
 
 enum type_of_person {covid_positive, primary_contact, secondary_contact, safe};
 
@@ -47,14 +34,6 @@ typedef struct Graph {
     Station* arr_of_stations;
 } Graph;
 
-// info of each station
-typedef struct Station {
-    HashTable PeopleList;
-    ll no_of_people;
-    double danger_value;
-    Node* ptr_to_ll_of_neighbours; // pointer to the linked list of meighbours
-} Station;
-
 typedef struct Node {
     ll length; // length of the edge
     ll danger_value; // danger value of the edge
@@ -62,6 +41,30 @@ typedef struct Node {
     struct Node* next; // ptr to next node
 } Node;
 
+// info of each station
+struct Station {
+    HashTable PeopleList;
+    ll no_of_people;
+    double danger_value;
+    Node* ptr_to_ll_of_neighbours; // pointer to the linked list of meighbours
+};
+
+
+///////////// Hashtable Code /////////////////////
+
+struct sepchainHT{
+    int TableSize;
+    PtrtoPerson *pStart;
+};
+
+HashTable CreateHashTable(int TableSize);
+Key Identityhash(Element x, int n);
+PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query);
+
+//////////////////////////////////////////////////
+
+void MovePerson(int personID, Station* station1, Station* station2, Person* *personlist);
+int Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list);
 
 /////// For task2 ////////
 

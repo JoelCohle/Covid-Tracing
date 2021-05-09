@@ -84,9 +84,8 @@ int main(void)
     {
         scanf("%lld", &P[i].station_no);
         int status = safe;
-         P[i].ID = i + 1;
+        P[i].ID = i + 1;
         separateHash(Stationlist[i]->PeopleList, P[i].ID, status, '+');
-        
     }
 
     // List of Covid Positive
@@ -96,7 +95,7 @@ int main(void)
     scanf("%lld", &X);
     for (int i = 0; i < L; i++)
     {
-        int person;
+        ll person;
         scanf("%lld", &person);
         P[person - 1].type = covid_positive;
       
@@ -135,7 +134,7 @@ int main(void)
             {
                 int personID;
                 scanf("%d", &personID);
-                printf("Station Number %d\n", P[personID - 1].station_no);
+                printf("Station Number %lld\n", P[personID - 1].station_no);
             }
             if (strcmp(query, "list") == 0)
             {
