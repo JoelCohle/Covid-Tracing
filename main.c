@@ -142,7 +142,7 @@ int main(void)
                 print_list_at_station(station_num, K, &P);
             }
         }
-        print_full_list(&P, K);
+        print_full_list( &P, K);
         
         printf("Proceeding to the next day\n");
     }
