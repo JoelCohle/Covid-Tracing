@@ -58,13 +58,15 @@ void insert_bidirectional_road(Graph* G, ll U, ll V, ll W, ll danger_value) {
 }
 
 // Initializes an array (size = number of people) of people 
-Person* initialize_people(ll no_of_people) {
-    Person* P = (Person*) malloc (no_of_people * sizeof(Person));
+PtrtoPerson* initialize_people(ll no_of_people) {
+    PtrtoPerson* P = (PtrtoPerson*) malloc (no_of_people * sizeof(PtrtoPerson));
     assert(P != NULL);
 
     // Initializing everyone as safe
     for (int i = 0; i < no_of_people; i++) {
-        P[i].type = safe;
+        P[i] = (Person*) malloc (sizeof(Person));
+        assert(P != NULL);
+        P[i]->type = safe;
     }
 
     return P;

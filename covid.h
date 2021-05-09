@@ -91,7 +91,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination);
 Graph* create_graph(ll no_of_stations, ll no_of_roads, ll total_no_of_people);
 void insert_edge(Graph* G, ll source, ll destination, ll length, ll danger_value);
 void insert_bidirectional_road(Graph* G, ll source, ll destination, ll length, ll danger_value);
-Person* initialize_people(ll no_of_people);
+PtrtoPerson* initialize_people(ll no_of_people);
 
 Set remove_edge(Graph* G, ll source, ll destination);
 Set remove_bidirectional_road(Graph* G, ll source, ll destination);

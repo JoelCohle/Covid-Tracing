@@ -35,7 +35,7 @@ void print_list_at_station(int station_num, int N, PtrtoPerson *person_list)
 
 void print_full_list(PtrtoPerson *P, int K)
 {
-    printf("List of People at the station with their statuses:\n");
+    printf("List of Primary and Secondary Contacts:\n");
         for (int i = 0; i < K; i++)
         {
             if (P[i]->type == primary_contact || P[i]->type == secondary_contact)
@@ -78,12 +78,12 @@ int main(void)
     separateHash(myHT, 3, safe, '+');
     // Initial Positions of all people
     
-    Person *P = initialize_people(K);
+    PtrtoPerson *P = initialize_people(K);
     for (ll i = 0; i < K; i++)
     {
-        scanf("%lld", &P[i].station_no);
-        P[i].ID = i + 1;
-        separateHash(Stationlist[P[i].station_no - 1]->PeopleList, P[i].ID, safe, '+');
+        scanf("%lld", &P[i]->station_no);
+        P[i]->ID = i + 1;
+        separateHash(Stationlist[P[i]->station_no - 1]->PeopleList, P[i]->ID, safe, '+');
     }
 
     //List of Covid Positive
@@ -96,12 +96,18 @@ int main(void)
     {
         ll person;
         scanf("%lld", &person);
-        P[person - 1].type = covid_positive;
+        if (person > K){
+            printf("Invalid Entry \n");
+            continue;
+        }
+        P[person - 1]->type = covid_positive;
+        ll location = P[person - 1]->station_no;
 
-        MovePerson(person, Stationlist[P[i].station_no - 1], Stationlist[P[i].station_no - 1], &P);
+        MovePerson(person, Stationlist[location - 1], Stationlist[location - 1], P);
     }
 
     // Accept Movements of all people for X days
+
     for (ll i = 0; i < X; i++)
     {
         printf("Enter all movements on day %lld\n", i + 1);
@@ -111,8 +117,12 @@ int main(void)
         {
             ll personID, U, V;
             scanf("%lld %lld %lld", &personID, &U, &V);
-            P[i].station_no = V;
-            MovePerson(personID, Stationlist[U - 1], Stationlist[V - 1], &P);
+            if (P[personID-1]->station_no != U){
+                printf("Invalid movement \n");
+                continue;
+            }
+            P[personID-1]->station_no = V;
+            MovePerson(personID, Stationlist[U - 1], Stationlist[V - 1], P);
         }
 
         printf("Enter number of queries\n");
@@ -126,23 +136,23 @@ int main(void)
             {
                 int personID;
                 scanf("%d", &personID);
-                int status = P[personID - 1].type;
+                int status = P[personID - 1]->type;
                 print_status(status);
             }
             if (strcmp(query, "location") == 0)
             {
                 int personID;
                 scanf("%d", &personID);
-                printf("Station Number %lld\n", P[personID - 1].station_no);
+                printf("Station Number %lld\n", P[personID - 1]->station_no);
             }
             if (strcmp(query, "list") == 0)
             {
                 int station_num;
                 scanf("%d", &station_num);
-                print_list_at_station(station_num, K, &P);
+                print_list_at_station(station_num, K, P);
             }
         }
-        print_full_list(&P, K);
+        print_full_list(P, K);
         
         printf("Proceeding to the next day\n");
     }
