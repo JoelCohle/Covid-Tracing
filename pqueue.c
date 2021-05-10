@@ -3,7 +3,8 @@
 #include <assert.h>
 #include <limits.h>
 
-PQueue* CreateEmptyPriorityQueue (ll capacity) {
+PQueue* CreateEmptyPriorityQueue (ll capacity) 
+{
     PQueue* Q = (PQueue*) malloc (sizeof(PQueue));
     assert(Q != NULL);
 

@@ -12,14 +12,21 @@ Graph* create_graph(ll no_of_stations, ll no_of_roads, ll total_no_of_people) {
     G->no_of_roads = no_of_roads;
     G->total_no_of_people = total_no_of_people;
 
-    G->arr_of_stations = (Station*) malloc (no_of_stations * sizeof(Station));
+    G->arr_of_stations = (Node**) malloc (sizeof(Node*));
     assert(G->arr_of_stations != NULL);
 
     for (ll i = 0; i < no_of_stations; i++) {
-        G->arr_of_stations[i].danger_value = 0;
-        G->arr_of_stations[i].no_of_people = 0;
-        G->arr_of_stations[i].ptr_to_ll_of_neighbours = NULL;
+        G->arr_of_stations[i] = NULL;
     }
+
+    // G->arr_of_stations = (Station*) malloc (no_of_stations * sizeof(Station));
+    // assert(G->arr_of_stations != NULL);
+
+    // for (ll i = 0; i < no_of_stations; i++) {
+    //     // G->arr_of_stations[i].danger_value = 0;
+    //     // G->arr_of_stations[i].no_of_people = 0;
+    //     G->arr_of_stations[i] = NULL;
+    // }
 
     return G;
 }
@@ -27,7 +34,7 @@ Graph* create_graph(ll no_of_stations, ll no_of_roads, ll total_no_of_people) {
 // Inserts an edge of length 'length' from 'source' to 'destination' 
 void insert_edge(Graph* G, ll source, ll destination, ll length, double danger_value) {
     
-    Node* temp = G->arr_of_stations[source].ptr_to_ll_of_neighbours;
+    Node* temp = G->arr_of_stations[source];
 
     bool found = false;
     while (temp != NULL) {
@@ -46,8 +53,8 @@ void insert_edge(Graph* G, ll source, ll destination, ll length, double danger_v
         temp->length = length;
         temp->danger_value = danger_value;
 
-        temp->next = G->arr_of_stations[source].ptr_to_ll_of_neighbours;
-        G->arr_of_stations[source].ptr_to_ll_of_neighbours = temp;
+        temp->next = G->arr_of_stations[source];
+        G->arr_of_stations[source] = temp;
     }
 }
 
@@ -74,7 +81,7 @@ PtrtoPerson* initialize_people(ll no_of_people) {
 
 // removes the edge from source to destination and returns the danger value and the length of the removed edge
 Set remove_edge(Graph* G, ll source, ll destination) {
-    Node* p = G->arr_of_stations[source].ptr_to_ll_of_neighbours;
+    Node* p = G->arr_of_stations[source];
     Node* t;
 
     Set set;
@@ -109,12 +116,17 @@ Set remove_bidirectional_road(Graph* G, ll source, ll destination) {
 
 
 void delete_graph(Graph* G) {
+    Node* p, *t;
     for (ll i = 0; i < G->no_of_stations; i++) {
-        Node* p = G->arr_of_stations[i].ptr_to_ll_of_neighbours;
+        Node* p = G->arr_of_stations[i];
         while (p != NULL) {
-            
-
+            t = p;
             p = p->next;
+            free(t);
         }
     }
+
+    free(G->arr_of_stations);
+
+    free(G);
 }

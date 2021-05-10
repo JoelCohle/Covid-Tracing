@@ -14,7 +14,8 @@ typedef long long int Element;
 typedef long long int Key;
 typedef long long int Vertex;
 typedef struct Station Station;
-
+typedef struct Graph Graph;
+typedef struct Node Node;
 
 enum type_of_person {covid_positive, primary_contact, secondary_contact, safe};
 
@@ -27,23 +28,24 @@ typedef struct Person {
 } Person;
 
 // info of the overall map
-typedef struct Graph { 
+struct Graph { 
     ll no_of_stations;
     ll no_of_roads;      
     ll total_no_of_people;
-    Station* arr_of_stations;
-} Graph;
+    Node** arr_of_stations;
+};
 
-typedef struct Node {
+struct Node {
     ll length; // length of the edge
     double danger_value; // danger value of the edge
     ll station_no;
-    struct Node* next; // ptr to next node
-} Node;
+    Node* next; // ptr to next node
+};
 
 // info of each station
 struct Station {
     HashTable PeopleList;
+    ll station_no;
     ll no_of_people;
     double danger_value;
     Node* ptr_to_ll_of_neighbours; // pointer to the linked list of meighbours
@@ -63,8 +65,10 @@ PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query);
 
 //////////////////////////////////////////////////
 
-void MovePerson(ll personID, Station* station1, Station* station2, Person* *personlist);
+void MovePerson(Graph* G, ll personID, Station* station1, Station* station2, Person* *personlist);
 double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list);
+
+void update_danger_value_of_edge(Graph* G, Station* s1, Station* s2);
 
 /////// For task2 ////////
 
