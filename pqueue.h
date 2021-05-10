@@ -21,7 +21,7 @@ struct pq_node {
     Key k;
 };
 
-PQueue* CreateEmptyPriorityQueue();
+PQueue* CreateEmptyPriorityQueue(ll capacity);
 void Priority_Enqueue(PQueue* Q, Element u, Key k);
 int IsPQueueEmpty(PQueue* Q);
 Element ExtractMin(PQueue* Q);

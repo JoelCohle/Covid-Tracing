@@ -118,6 +118,7 @@ int main(void)
             if (P[personID-1]->station_no != U)
             {
                 printf("Invalid movement \n");          // If person isn't currently in that station
+                i--;
                 continue;
             }
             P[personID-1]->station_no = V;
@@ -131,12 +132,6 @@ int main(void)
         {
             char query[10];
             scanf("%s", query);
-            if (strcmp(query, "top_3_safest_and_shortest_paths") == 0) {
-                ll source, destination;
-                printf("Enter the Station number of the source and the destination: ");
-                scanf("%lld %lld", &source, &destination);
-                print_top_three_routes(G, source - 1, destination - 1);
-            }
             if (strcmp(query, "status") == 0)       // To find status of a given Person
             {
                 ll personID;
@@ -157,11 +152,17 @@ int main(void)
                 print_list_at_station(station_num, K, P);
             }
         }
-        printf("List of all primary and secondary contacts on Day %lld:\n", i);
+        printf("List of all primary and secondary contacts on Day %lld:\n", i + 1);
         print_full_list(P, K);      // To print list of all primary and secondary contacts on Day 'i' (TASK 1)
         
         printf("Proceeding to the next day\n");
     }
+
+    ll source, destination;
+    printf("Enter the Station number of the source and the destination: ");
+    scanf("%lld %lld", &source, &destination);
+    print_top_three_routes(G, source - 1, destination - 1);
+
     printf("\nWe have found all Primary and Secondary Contacts of List L of people and carried out necessary user queries\n");
 
 

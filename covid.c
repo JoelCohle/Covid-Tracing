@@ -12,21 +12,12 @@ Graph* create_graph(ll no_of_stations, ll no_of_roads, ll total_no_of_people) {
     G->no_of_roads = no_of_roads;
     G->total_no_of_people = total_no_of_people;
 
-    G->arr_of_stations = (Node**) malloc (sizeof(Node*));
+    G->arr_of_stations = (Node**) malloc (no_of_stations * sizeof(Node*));
     assert(G->arr_of_stations != NULL);
 
     for (ll i = 0; i < no_of_stations; i++) {
         G->arr_of_stations[i] = NULL;
     }
-
-    // G->arr_of_stations = (Station*) malloc (no_of_stations * sizeof(Station));
-    // assert(G->arr_of_stations != NULL);
-
-    // for (ll i = 0; i < no_of_stations; i++) {
-    //     // G->arr_of_stations[i].danger_value = 0;
-    //     // G->arr_of_stations[i].no_of_people = 0;
-    //     G->arr_of_stations[i] = NULL;
-    // }
 
     return G;
 }
