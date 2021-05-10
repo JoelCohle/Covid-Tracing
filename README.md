@@ -39,9 +39,9 @@
 2. The input **“numq”** asks the number of queries the user wants to input which is naturally followed by a string input **“query”** asking for the type of query required.  
 
 3. Query types: (**TASK 3**)
-    *   status  : User inputs integer **“personID”**. Program Outputs status of said person.
-    *   location: User inputs integer **“personID”**. Program Outputs location of said person.
-    *   list    : User inputs integer **“station_num”**. Program Outputs list of all people at the station along with their status.
+    *   **status**  : User inputs integer **personID**. Program Outputs status of said person.
+    *   **location**: User inputs integer **personID**. Program Outputs location of said person.
+    *   **list**    : User inputs integer **station_num**. Program Outputs list of all people at the station along with their status.
 
 ### Final Input (**TASK 2**):
 
