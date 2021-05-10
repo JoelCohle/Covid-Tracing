@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
+#include <limits.h>
+#include <float.h>
 
 
 // prints top 3 safest and shortest routes from source to destination
@@ -14,7 +16,6 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
 
     // find the second safest path by removing the edges in the 1st safest path from the graph and run dijkstra with one of the edge removed everytime
     path_info* safest_path_2;
-    safest_path_2->danger_value = INFINITY;
     path_info* temp;
 
     ll n = safest_path_1->no_of_vertices_in_the_path;
@@ -27,9 +28,13 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
         if (isConnected(G) == 1) {
             // store the safest path obtained by removing the edge between i and i + 1 in temp
             temp = dijkstra(G, source, destination);
+
+            if (i == 0) {
+                safest_path_2 = temp;
+            }
             
             // update safest_path_2 only if temp's danger value is less than the danger value(s) of previous temp(s)
-            if (temp->danger_value < safest_path_2->danger_value) {
+            else if (temp->danger_value < safest_path_2->danger_value) {
                 safest_path_2 = temp;
             }
         }
@@ -44,7 +49,6 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
     // if there are n vertices in 1st safest path and m vertices in 2nd safest path, then dijkstra will be run (n - 1)(m - 1) times (in worst case) to find the 3rd safest path
 
     path_info* safest_path_3;
-    safest_path_3->danger_value = INFINITY;
 
     ll m = safest_path_2->no_of_vertices_in_the_path;
     for (ll i = 0; i < n - 1; i++) {
@@ -56,6 +60,10 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
                 
                 if (isConnected(G) == 1) {
                     temp = dijkstra(G, source, destination);
+
+                    if (i == 0 && j == 0) {
+                        safest_path_3 = temp;
+                    }
 
                     if (temp->danger_value < safest_path_3->danger_value) {
                         safest_path_3 = temp;
@@ -99,7 +107,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
 
     printf("Best path: ");
     for (ll i = 0; i < safest_path_1->no_of_vertices_in_the_path; i++) {
-        printf("%lld ", safest_path_1->path_vertices[i]);
+        printf("%lld ", safest_path_1->path_vertices[i] + 1);
     }
     printf("\nLength: %lld\n", safest_path_1->length);
     printf("Danger value: %lf\n", safest_path_1->danger_value);
@@ -107,7 +115,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
 
     printf("2nd best path: ");
     for (ll i = 0; i < safest_path_2->no_of_vertices_in_the_path; i++) {
-        printf("%lld ", safest_path_2->path_vertices[i]);
+        printf("%lld ", safest_path_2->path_vertices[i] + 1);
     }
     printf("\nLength: %lld\n", safest_path_2->length);
     printf("Danger value: %lf\n", safest_path_2->danger_value);
@@ -115,7 +123,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
 
     printf("3rd best path: ");
     for (ll i = 0; i < safest_path_3->no_of_vertices_in_the_path; i++) {
-        printf("%lld ", safest_path_3->path_vertices[i]);
+        printf("%lld ", safest_path_3->path_vertices[i] + 1);
     }
     printf("\nLength: %lld\n", safest_path_3->length);
     printf("Danger value: %lf\n", safest_path_3->danger_value);
@@ -139,7 +147,7 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
 
     ll previous_vertex[n];
     int isKnown[n];
-    ll distance_to_source[n];
+    double distance_to_source[n];
 
     for (ll i = 0; i < n; i++) {
         previous_vertex[i] = UNKNOWN;
@@ -150,7 +158,7 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
 
     PQueue* Q = CreateEmptyPriorityQueue(n);
     for (ll i = 0; i < n; i++) {
-        Priority_Enqueue(Q, (Element) i, (Key) distance_to_source[i]);
+        Priority_Enqueue(Q, (Element) i, (double) distance_to_source[i]);
     }
 
     while (!IsPQueueEmpty(Q)) {
@@ -175,20 +183,23 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
     assert(path != NULL);
     path->path_vertices = (ll*) malloc (n * sizeof(ll));
     assert(path->path_vertices != NULL);
+    
+    path->no_of_vertices_in_the_path = 0;
+    path->danger_value = distance_to_source[destination];
 
     ll index = 0;
     // get the path using the previous_vertex array 
     GetPath(previous_vertex, destination, path, &index);
 
-    path->length = distance_to_source[destination];
+    
 
-    // find the danger value of the path
-    path->danger_value = 0;
+    // find the length of the path
+    path->length = 0;
     for (ll i = 0; i < path->no_of_vertices_in_the_path; i++) {
         Node* p = G->arr_of_stations[source];
         while (p != NULL) {
             if (p->station_no == destination) {
-                (path->danger_value) += (p->danger_value);
+                (path->length) += (p->length);
             }
             p = p->next;
         }

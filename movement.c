@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <float.h>
 
 #include "covid.h"
 
@@ -29,7 +30,7 @@ void MovePerson(Graph* G, ll personID, Station* station1, Station* station2, Ptr
     station2->danger_value = danger_value;
     
 
-    update_danger_value_of_edge(G, station1, station2);
+    // update_danger_value_of_edge(G, station1, station2);
 }
 
 double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
@@ -106,23 +107,32 @@ double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list)
 }
 
 
-void update_danger_value_of_edge(Graph* G, Station* s1, Station* s2) {
-    Node* p = G->arr_of_stations[s1->station_no];
-    while (p != NULL) {
-        if (p->station_no == s2->station_no) {
-            p->danger_value = (s1->danger_value) + (s2->danger_value);
-            break;
-        }
-        p = p->next;
-    }
+void update_danger_value_of_edges(Graph* G, Station** Stationlist) {
+    // Node* p = G->arr_of_stations[s1->station_no];
+    // while (p != NULL) {
+    //     if (p->station_no == s2->station_no) {
+    //         p->danger_value = (s1->danger_value) + (s2->danger_value);
+    //         break;
+    //     }
+    //     p = p->next;
+    // }
 
-    p = G->arr_of_stations[s2->station_no];
-    while (p != NULL) {
-        if (p->station_no == s1->station_no) {
-            p->danger_value = (s1->danger_value) + (s2->danger_value);
-            break;
+    // p = G->arr_of_stations[s2->station_no];
+    // while (p != NULL) {
+    //     if (p->station_no == s1->station_no) {
+    //         p->danger_value = (s1->danger_value) + (s2->danger_value);
+    //         break;
+    //     }
+    //     p = p->next;
+    // }
+
+    for(ll i = 0; i < G->no_of_stations; i++) {
+        Node* p = G->arr_of_stations[i];
+        while(p != NULL) {
+            p->danger_value = Stationlist[i]->danger_value + Stationlist[p->station_no]->danger_value;
+
+            p = p->next;
         }
-        p = p->next;
     }
 
     return;

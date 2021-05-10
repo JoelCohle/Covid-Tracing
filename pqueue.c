@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <limits.h>
+#include <float.h>
 
-PQueue* CreateEmptyPriorityQueue (ll capacity) {
+PQueue* CreateEmptyPriorityQueue (ll capacity) 
+{
     PQueue* Q = (PQueue*) malloc (sizeof(PQueue));
     assert(Q != NULL);
 
@@ -13,7 +15,7 @@ PQueue* CreateEmptyPriorityQueue (ll capacity) {
     assert(Q->arr != NULL);
 
     for (ll i = 0; i < capacity; i++) {
-        Q->arr[i].k = LLONG_MAX;
+        Q->arr[i].k = DBL_MAX;
     }
 
     return Q;
@@ -64,19 +66,19 @@ void shiftDown(PQueue* Q, ll i) {
     }
 }
 
-void Priority_Enqueue(PQueue* Q, Element u, Key k) {
+void Priority_Enqueue(PQueue* Q, Element u, double k) {
     Q->size++;
     ll i = Q->size;
-    Q->arr[i].n = u;
-    Q->arr[i].k = k;
+    Q->arr[i - 1].n = u;
+    Q->arr[i - 1].k = k;
 
-    shiftUp(Q, i);
+    shiftUp(Q, i - 1);
 }
 
 ll ExtractMin(PQueue* Q) {
     ll result = Q->arr[0].n;
 
-    Q->arr[0] = Q->arr[Q->size];
+    Q->arr[0] = Q->arr[(Q->size) - 1];
     Q->size--;
 
     shiftDown(Q, 0);
@@ -84,7 +86,7 @@ ll ExtractMin(PQueue* Q) {
     return result;
 }
 
-void DecreaseKey(PQueue* Q, Element u, Key new_decreased_key) {
+void DecreaseKey(PQueue* Q, Element u, double new_decreased_key) {
     // find the index of u in the heap
     ll i = 0;
     while (i < Q->size) {
@@ -98,12 +100,7 @@ void DecreaseKey(PQueue* Q, Element u, Key new_decreased_key) {
     Q->arr[i].k = new_decreased_key;
 
     // heapify
-    if (Q->arr[i].k < Q->arr[parent(i)].k) {
-        shiftUp(Q, i);
-    }
-    else if (Q->arr[i].k > Q->arr[leftChild(i)].k || Q->arr[i].k > Q->arr[rightChild(i)].k) {
-        shiftDown(Q, i);
-    }
+    shiftUp(Q, i);
 
     return;
 }

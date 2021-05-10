@@ -118,7 +118,6 @@ int main(void)
             if (P[personID-1]->station_no != U)
             {
                 printf("Invalid movement \n");          // If person isn't currently in that station
-                i--;
                 continue;
             }
             P[personID-1]->station_no = V;
@@ -152,11 +151,13 @@ int main(void)
                 print_list_at_station(station_num, K, P);
             }
         }
-        printf("List of all primary and secondary contacts on Day %lld:\n", i + 1);
+        printf("List of all primary and secondary contacts on Day %lld:\n", i);
         print_full_list(P, K);      // To print list of all primary and secondary contacts on Day 'i' (TASK 1)
         
         printf("Proceeding to the next day\n");
     }
+
+    update_danger_value_of_edges(G, Stationlist);
 
     ll source, destination;
     printf("Enter the Station number of the source and the destination: ");

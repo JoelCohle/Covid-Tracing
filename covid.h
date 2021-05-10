@@ -4,8 +4,9 @@
 #define ll long long int
 
 #include <limits.h>
+#include <float.h>
 
-#define INFINITY LLONG_MAX // to use in dijkstra
+#define INFINITY DBL_MAX // to use in dijkstra
 #define UNKNOWN -1
 
 typedef struct Person * PtrtoPerson;
@@ -68,7 +69,7 @@ PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query);
 void MovePerson(Graph* G, ll personID, Station* station1, Station* station2, Person* *personlist);
 double Update(Station *S, PtrtoPerson P, PtrtoPerson *person_list);
 
-void update_danger_value_of_edge(Graph* G, Station* s1, Station* s2);
+void update_danger_value_of_edges(Graph* G, Station** Stationlist);
 
 /////// For task2 ////////
 

@@ -35,24 +35,23 @@ void insert_edge(Graph* G, ll source, ll destination, ll length, double danger_v
         }
         temp = temp->next;
     }
-
+    
     if (!found) {
-        temp = (Node*) malloc (sizeof(Node));
-        assert(temp != NULL);
+        Node* p = (Node*) malloc (sizeof(Node));        
+        assert(p != NULL);
 
-        temp->station_no = destination;
-        temp->length = length;
-        temp->danger_value = danger_value;
+        p->station_no = destination;
+        p->length = length;
+        p->danger_value = danger_value;
 
-        temp->next = G->arr_of_stations[source];
-        G->arr_of_stations[source] = temp;
+        p->next = G->arr_of_stations[source];
+        G->arr_of_stations[source] = p;
     }
 }
 
 void insert_bidirectional_road(Graph* G, ll U, ll V, ll W, double danger_value) {
     insert_edge(G, U, V, W, danger_value); // Insert an edge from U to V
     insert_edge(G, V, U, W, danger_value); // Insert an edge from V to U
-    G->no_of_roads++;
 }
 
 // Initializes an array (size = number of people) of people 
@@ -73,26 +72,54 @@ PtrtoPerson* initialize_people(ll no_of_people) {
 // removes the edge from source to destination and returns the danger value and the length of the removed edge
 Set remove_edge(Graph* G, ll source, ll destination) {
     Node* p = G->arr_of_stations[source];
-    Node* t;
+    Node* t = p;
 
     Set set;
     set.length = UNKNOWN;
     set.danger_value = UNKNOWN;
 
-    while (p != NULL) {
-        if (p->next->station_no == destination) {
-            t = p->next;
-            p->next = t->next;
+    // if (p->next == NULL) {
+    //     set.length = p->length;
+    //     set.danger_value = p->danger_value;
+    //     free(p);
+    //     G->arr_of_stations[source] = NULL;
+    // }
 
-            set.danger_value = t->danger_value;
-            set.length = t->length;
+    // while (p->next != NULL) {
+    //     if (p->next->station_no == destination) {
+    //         t = p->next;
+    //         p->next = t->next;
 
-            free(t); 
+    //         set.danger_value = t->danger_value;
+    //         set.length = t->length;
 
-            return set;
-        }
+    //         free(t); 
+
+    //         return set;
+    //     }
+    //     p = p->next;
+    // }
+
+    if (p != NULL && p->station_no == destination) {
+        set.length = p->length;
+        set.danger_value = p->danger_value;
+        G->arr_of_stations[source] = p->next;
+        free(p);
+
+        return set;
+    }
+
+    while (p != NULL && p->station_no != destination) {
         p = p->next;
     }
+    while (t != NULL && t->next != p) {
+        t = t->next;
+    }
+
+    t->next = p->next;
+    set.length = p->length;
+    set.danger_value = p->danger_value;
+    free(p);
 
     return set;
 }
@@ -101,7 +128,7 @@ Set remove_bidirectional_road(Graph* G, ll source, ll destination) {
     Set set;
     set = remove_edge(G, source, destination);
     set = remove_edge(G, destination, source);
-    G->no_of_roads --;
+    // G->no_of_roads --;
     return set;
 }
 

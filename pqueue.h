@@ -7,7 +7,7 @@ typedef struct PQueue PQueue; // Priority Queue using Min Heaps
 typedef struct pq_node pq_node; // Node in Priority Queue
 
 typedef long long int Element;
-typedef long long int Key;
+// typedef long long int Key;
 
 
 struct PQueue {
@@ -18,16 +18,17 @@ struct PQueue {
 
 struct pq_node {
     Element n;
-    Key k;
+    double k;
 };
 
-PQueue* CreateEmptyPriorityQueue(ll capacity);
-void Priority_Enqueue(PQueue* Q, Element u, Key k);
+PQueue* CreateEmptyPriorityQueue();
+void Priority_Enqueue(PQueue* Q, Element u, double k);
 int IsPQueueEmpty(PQueue* Q);
 Element ExtractMin(PQueue* Q);
-void DecreaseKey(PQueue* Q, Element u, Key new_decreased_key);
+void DecreaseKey(PQueue* Q, Element u, double new_decreased_key);
 
 void delete_pqueue(PQueue* Q);
+
 
 
 
