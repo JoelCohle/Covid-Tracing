@@ -35,12 +35,12 @@ void print_list_at_station(ll station_num, ll N, PtrtoPerson *person_list)
     }
 }
 
-// Prints List of all Primary and Secondary Contacts //
+// Prints List of all Covid-Positive, Primary and Secondary Contacts //
 void print_full_list(PtrtoPerson *P, ll K)
 {
         for (ll i = 0; i < K; i++)
         {
-            if (P[i]->type == primary_contact || P[i]->type == secondary_contact)
+            if (P[i]->type == primary_contact || P[i]->type == secondary_contact || P[i]->type == covid_positive)
             {
                 ll status = P[i]->type;
                 printf("Person %lld: ", i + 1);
@@ -187,7 +187,7 @@ int main(void)
             }
             printf("\n");
         }
-        printf("\nList of all primary and secondary contacts on Day %lld:\n", D - X + i);
+        printf("\nList of all Covid-positive, Primary and Secondary contacts on Day %lld:\n", D - X + i);
         printf("*******************************************************\n");
         print_full_list(P, K);      // To print list of all primary and secondary contacts on Day 'i' (TASK 1)
         
