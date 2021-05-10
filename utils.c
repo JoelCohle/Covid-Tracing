@@ -71,6 +71,21 @@ PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query)
     return Position->next;
 }
 
+void delete_hash_table(HashTable HT) {
+    for (ll i = 0; i < HT->TableSize; i++) {
+        PtrtoPerson p = HT->pStart[i];
+        PtrtoPerson t;
+        while(p != NULL) {
+            t = p;
+            p = p->next;
+            free(t);
+        }
+    }
+
+    free(HT->pStart);
+    free(HT);
+}
+
 #include <limits.h>
 //#include <stdio.h>
 //#include <stdlib.h>

@@ -77,6 +77,7 @@ int main(void)
     for (ll i = 0; i < N; i++)
     {
         Stationlist[i] = (Station*)malloc(sizeof(Station));
+        assert(Stationlist[i] != NULL);
         Stationlist[i]->PeopleList = CreateHashTable(Tablesize);
         Stationlist[i]->station_no = i;
     }
@@ -205,6 +206,11 @@ int main(void)
     printf("\nWe have found all Primary and Secondary Contacts of List L of people and carried out necessary user queries\n");
 
 
+    for (ll i = 0; i < N; i++) {
+        delete_hash_table(Stationlist[i]->PeopleList);
+    }
+    delete_all_stations(Stationlist, N);;
+    delete_people(P, K);
     delete_graph(G);
 
     return 0;

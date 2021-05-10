@@ -102,6 +102,9 @@ Set remove_edge(Graph* G, ll source, ll destination);
 Set remove_bidirectional_road(Graph* G, ll source, ll destination);
 
 
+void delete_hash_table(HashTable HT);
+void delete_all_stations(Station** Stationlist, ll no_of_stations);
+void delete_people(PtrtoPerson* P, ll no_of_people);
 void delete_graph(Graph* G);
 
 #endif

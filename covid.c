@@ -78,28 +78,6 @@ Set remove_edge(Graph* G, ll source, ll destination) {
     set.length = UNKNOWN;
     set.danger_value = UNKNOWN;
 
-    // if (p->next == NULL) {
-    //     set.length = p->length;
-    //     set.danger_value = p->danger_value;
-    //     free(p);
-    //     G->arr_of_stations[source] = NULL;
-    // }
-
-    // while (p->next != NULL) {
-    //     if (p->next->station_no == destination) {
-    //         t = p->next;
-    //         p->next = t->next;
-
-    //         set.danger_value = t->danger_value;
-    //         set.length = t->length;
-
-    //         free(t); 
-
-    //         return set;
-    //     }
-    //     p = p->next;
-    // }
-
     if (p != NULL && p->station_no == destination) {
         set.length = p->length;
         set.danger_value = p->danger_value;
@@ -132,6 +110,20 @@ Set remove_bidirectional_road(Graph* G, ll source, ll destination) {
     return set;
 }
 
+
+void delete_all_stations(Station** Stationlist, ll no_of_stations) {
+    for (ll i = 0; i < no_of_stations; i++) {
+        free(Stationlist[i]);
+    }
+    free(Stationlist);
+}
+
+void delete_people(PtrtoPerson* P, ll no_of_people) {
+    for (ll i = 0; i < no_of_people; i++) {
+        free(P[i]);
+    }
+    free(P);
+}
 
 void delete_graph(Graph* G) {
     Node* p, *t;

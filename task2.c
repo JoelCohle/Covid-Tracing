@@ -133,6 +133,10 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
 
 
     // free the dynamically allocated memory
+    if (temp != safest_path_3) {
+        free(temp->path_vertices);
+        free(temp);
+    }
     free(safest_path_1->path_vertices);
     free(safest_path_1);
     free(safest_path_2->path_vertices);
