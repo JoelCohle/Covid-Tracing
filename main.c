@@ -182,18 +182,24 @@ int main(void)
             printf("\n");
         }
         printf("\nList of all Covid-positive, Primary and Secondary contacts on Day %lld:\n", D - X + i);
-        printf("*******************************************************\n");
+        printf("************************************************************************\n");
         print_full_list(P, K);      // To print list of all primary and secondary contacts on Day 'i' (TASK 1)
         
         printf("\nProceeding to the next day\n\n\n\n\n");
     }
 
     update_danger_value_of_edges(G, Stationlist);
+    
+
+    printf("Printing the best paths to travel\n\n");
+    
 
     ll source, destination;
     printf("Enter the Station number of the source and the destination: ");
     scanf("%lld %lld", &source, &destination);
+    printf("\n");
     print_top_three_routes(G, source - 1, destination - 1);
+    
 
     printf("\nWe have found all Primary and Secondary Contacts of List L of people and carried out necessary user queries\n");
 

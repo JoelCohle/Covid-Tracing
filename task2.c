@@ -109,24 +109,27 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
     for (ll i = 0; i < safest_path_1->no_of_vertices_in_the_path; i++) {
         printf("%lld ", safest_path_1->path_vertices[i] + 1);
     }
-    printf("\nLength: %lld\n", safest_path_1->length);
-    printf("Danger value: %lf\n", safest_path_1->danger_value);
+    printf("\n");
+    //printf("Length: %lld\n", safest_path_1->length);
+    printf("Danger value: %lf\n\n", safest_path_1->danger_value);
 
 
     printf("2nd best path: ");
     for (ll i = 0; i < safest_path_2->no_of_vertices_in_the_path; i++) {
         printf("%lld ", safest_path_2->path_vertices[i] + 1);
     }
-    printf("\nLength: %lld\n", safest_path_2->length);
-    printf("Danger value: %lf\n", safest_path_2->danger_value);
+    printf("\n");
+    //printf("Length: %lld\n", safest_path_2->length);
+    printf("Danger value: %lf\n\n", safest_path_2->danger_value);
 
 
     printf("3rd best path: ");
     for (ll i = 0; i < safest_path_3->no_of_vertices_in_the_path; i++) {
         printf("%lld ", safest_path_3->path_vertices[i] + 1);
     }
-    printf("\nLength: %lld\n", safest_path_3->length);
-    printf("Danger value: %lf\n", safest_path_3->danger_value);
+    printf("\n");
+    //printf("Length: %lld\n", safest_path_3->length);
+    printf("Danger value: %lf\n\n", safest_path_3->danger_value);
 
 
     // free the dynamically allocated memory
