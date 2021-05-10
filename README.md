@@ -4,17 +4,23 @@
 >## Assumptions:
 
 
-1. People who are not quarantined can move across any number of stations on a given day.
+1. Covid Positive people in the list L started making contacts on day, D - X.
 
-2. If a station contains at least one positive person at a given time, then all of the people in that station will be marked as primary contacts in the future unless they test positive.
+2. We are required to find all contacts and other queries on the X days before day D and find the 3 safest and shortest paths at the start of day D.
 
-3. If a station contains at least one primary contact at a given time then all the people in that station will be marked as secondary contacts until and unless someone tests positive in which case they will be marked as the primary contacts as stated before.
+3. Since all queries are BEFORE day D, we need not use the information that list L is quarantined from Day D.
 
-4. The people who test positive will not move between stations.  
+4. If a station contains at least one positive person at a given time, then all of the people in that station will be marked as primary contacts in the future unless they test positive.
 
+5. If a station contains at least one primary contact at a given time then all the people in that station will be marked as secondary contacts until and unless someone tests positive in which case they will be marked as the primary contacts as stated before. 
+
+6. All queries on a particular day are made after all movements on said day. This is to ensure Uniformity of input.
+
+7. The list of all Primary and Secondary Contacts in a Day are printed at the end of the Day (**TASK 1**)
 
 >## Instructions for input format:
 
+### Standard Input:
 
 1. The first line contains 3 space-separated integers **N, M, K** representing the number of stations, the number of bidirectional roads and the total number of people respectively.
 
@@ -24,10 +30,19 @@
 
 4. The next 3 lines contain **L, D, X** i.e. the number of positive people on day D, and X is the number of days requested to trace back.
 
-5. L lines after that take in the input for ids of the L positive people. 
+5. L lines after that take in the input for ID's of the L positive people. 
 
-6. For each of the X days, the code takes the input **“num”** represents the number of movements that day, followed by **“num”** queries of **“personid”** and then again U and V to indicate that the person of the given id has traveled from U to V in that day.
+### Input Per Day (For X Days):
 
-7. The input **“numq”** asks the number of queries the user wants to input which is naturally followed by a string input **“query”** asking for the type of query required.  
+1. The input **“num”** representing the number of movements that day, followed by **“num”** queries of 3 space-separated integers **“personID”**, **"U"** and **"V"** to indicate that the person of the given id has traveled from U to V in that day.
 
-8. If the query asks for **“status”** or **“location”** of a person then it is followed by the required person’s id as the input in the next line. And if **“list”** is requested then the user has to specify which station number is the list required for in the next line. 
+2. The input **“numq”** asks the number of queries the user wants to input which is naturally followed by a string input **“query”** asking for the type of query required.  
+
+3. Query types: (**TASK 3**)
+    *   status  : User inputs integer **“personID”**. Program Outputs status of said person.
+    *   location: User inputs integer **“personID”**. Program Outputs location of said person.
+    *   list    : User inputs integer **“station_num”**. Program Outputs list of all people at the station along with their status.
+
+### Final Input (**TASK 2**):
+
+1. User inputs 2 space-separated integers  **U, V** and program outputs top 3 safest and shortest paths between **U** and **V**.

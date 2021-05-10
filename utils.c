@@ -3,7 +3,7 @@
 #include <assert.h>
 #include "covid.h"
 
-HashTable CreateHashTable(ll TableSize)
+HashTable CreateHashTable(ll TableSize) // Creates Empty hashtable
 {
     ll i = 0;
     HashTable myHt;
@@ -34,6 +34,7 @@ Key Identityhash(Element x, ll n)
         return -1;
 }
 
+// Function to Find, Insert and Delete from Hashtable //
 PtrtoPerson separateHash(HashTable myHT, Element x, int status, char query)
 {
     Key k = Identityhash(x, myHT->TableSize);
