@@ -153,6 +153,7 @@ int main(void)
                 scanf("%lld", &personID);
                 if (personID > K){
                     printf("Person does not exist \n");         // If such a person doesnt exist
+                    i--;
                     continue;
                 }
                 printf("Person %lld is ", personID);

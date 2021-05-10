@@ -110,7 +110,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
         printf("%lld ", safest_path_1->path_vertices[i] + 1);
     }
     printf("\n");
-    //printf("Length: %lld\n", safest_path_1->length);
+    printf("Length: %lld\n", safest_path_1->length);
     printf("Danger value: %lf\n\n", safest_path_1->danger_value);
 
 
@@ -119,7 +119,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
         printf("%lld ", safest_path_2->path_vertices[i] + 1);
     }
     printf("\n");
-    //printf("Length: %lld\n", safest_path_2->length);
+    printf("Length: %lld\n", safest_path_2->length);
     printf("Danger value: %lf\n\n", safest_path_2->danger_value);
 
 
@@ -128,7 +128,7 @@ void print_top_three_routes (Graph* G, ll source, ll destination) {
         printf("%lld ", safest_path_3->path_vertices[i] + 1);
     }
     printf("\n");
-    //printf("Length: %lld\n", safest_path_3->length);
+    printf("Length: %lld\n", safest_path_3->length);
     printf("Danger value: %lf\n\n", safest_path_3->danger_value);
 
 
@@ -198,10 +198,10 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
 
     // find the length of the path
     path->length = 0;
-    for (ll i = 0; i < path->no_of_vertices_in_the_path; i++) {
-        Node* p = G->arr_of_stations[source];
+    for (ll i = 0; i < (path->no_of_vertices_in_the_path) - 1; i++) {
+        Node* p = G->arr_of_stations[path->path_vertices[i]];
         while (p != NULL) {
-            if (p->station_no == destination) {
+            if (p->station_no == path->path_vertices[i + 1]) {
                 (path->length) += (p->length);
             }
             p = p->next;
