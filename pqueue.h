@@ -26,9 +26,6 @@ void Priority_Enqueue(PQueue* Q, Element u, Key k);
 int IsPQueueEmpty(PQueue* Q);
 Element ExtractMin(PQueue* Q);
 void DecreaseKey(PQueue* Q, Element u, Key new_decreased_key);
-
 void delete_pqueue(PQueue* Q);
-
-
 
 #endif
