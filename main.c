@@ -190,11 +190,10 @@ int main(void)
         printf("\nProceeding to the next day\n\n\n\n\n");
     }
 
+    // update the danger value of all the edges before finding the safest and shortest paths
     update_danger_value_of_edges(G, Stationlist);
     
-
     printf("Printing the best paths to travel\n\n");
-    
 
     ll source, destination;
     printf("Enter the Station number of the source and the destination: ");
@@ -206,6 +205,7 @@ int main(void)
     printf("\nWe have found all Primary and Secondary Contacts of List L of people and carried out necessary user queries\n");
 
 
+    // free all the dynamically allocated memory
     for (ll i = 0; i < N; i++) {
         delete_hash_table(Stationlist[i]->PeopleList);
     }

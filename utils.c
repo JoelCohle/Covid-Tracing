@@ -87,9 +87,6 @@ void delete_hash_table(HashTable HT) {
 }
 
 #include <limits.h>
-//#include <stdio.h>
-//#include <stdlib.h>
- 
 
 struct Stack {
     int top;

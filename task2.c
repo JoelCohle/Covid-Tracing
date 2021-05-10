@@ -164,6 +164,7 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
     distance_to_source[source] = 0;
 
     PQueue* Q = CreateEmptyPriorityQueue(n);
+    // add all the station numbers into a priority queue with its distance to source as key
     for (ll i = 0; i < n; i++) {
         Priority_Enqueue(Q, (Element) i, (double) distance_to_source[i]);
     }
@@ -188,7 +189,8 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
 
     path_info* path = (path_info*) malloc (sizeof(path_info));
     assert(path != NULL);
-    path->path_vertices = (ll*) malloc (n * sizeof(ll));
+
+    path->path_vertices = (ll*) malloc (n * sizeof(ll)); // path_vertices stores the vertices present in the path in an array
     assert(path->path_vertices != NULL);
     
     path->no_of_vertices_in_the_path = 0;
@@ -212,7 +214,7 @@ path_info* dijkstra (Graph* G, ll source, ll destination) {
         }
     }
 
-    delete_pqueue(Q);
+    delete_pqueue(Q); // to deallocate the dynamically allocated memory for PQueue
 
     return path;
 }
@@ -231,6 +233,7 @@ void GetPath (ll* previous_vertex, ll destination, path_info* path, ll* index) {
 // returns 1 if the graph is connected, else 0. (undirected graph)
 int isConnected(Graph* G) {
     for (ll i = 0; i < G->no_of_stations; i++) {
+        // if the station 'i' has no edges, then the graph is not connected
         if (G->arr_of_stations[i] == NULL) {
             return 0;
         }

@@ -7,7 +7,6 @@ typedef struct PQueue PQueue; // Priority Queue using Min Heaps
 typedef struct pq_node pq_node; // Node in Priority Queue
 
 typedef long long int Element;
-// typedef long long int Key;
 
 
 struct PQueue {

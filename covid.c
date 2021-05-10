@@ -24,7 +24,8 @@ Graph* create_graph(ll no_of_stations, ll no_of_roads, ll total_no_of_people) {
 
 // Inserts an edge of length 'length' from 'source' to 'destination' 
 void insert_edge(Graph* G, ll source, ll destination, ll length, double danger_value) {
-    
+
+    // Check if the 'source' and 'destination' are already connected    
     Node* temp = G->arr_of_stations[source];
 
     bool found = false;
@@ -36,14 +37,19 @@ void insert_edge(Graph* G, ll source, ll destination, ll length, double danger_v
         temp = temp->next;
     }
     
+    // we add the edge if there was no edge between 'source' and 'destination' previously
+    // there cannot be multiple roads between two stations
     if (!found) {
+        // create new node
         Node* p = (Node*) malloc (sizeof(Node));        
         assert(p != NULL);
 
+        // set the values
         p->station_no = destination;
         p->length = length;
         p->danger_value = danger_value;
 
+        // insert it into the graph (Adj. list)
         p->next = G->arr_of_stations[source];
         G->arr_of_stations[source] = p;
     }
@@ -111,6 +117,7 @@ Set remove_bidirectional_road(Graph* G, ll source, ll destination) {
 }
 
 
+// deletes all the stations. (deallocates the memory)
 void delete_all_stations(Station** Stationlist, ll no_of_stations) {
     for (ll i = 0; i < no_of_stations; i++) {
         free(Stationlist[i]);
@@ -118,6 +125,7 @@ void delete_all_stations(Station** Stationlist, ll no_of_stations) {
     free(Stationlist);
 }
 
+// deletes all the people. (deallocates the memory)
 void delete_people(PtrtoPerson* P, ll no_of_people) {
     for (ll i = 0; i < no_of_people; i++) {
         free(P[i]);
@@ -125,6 +133,7 @@ void delete_people(PtrtoPerson* P, ll no_of_people) {
     free(P);
 }
 
+// deletes the whole graph. (deallocates the memory)
 void delete_graph(Graph* G) {
     Node* p, *t;
     for (ll i = 0; i < G->no_of_stations; i++) {
@@ -137,6 +146,5 @@ void delete_graph(Graph* G) {
     }
 
     free(G->arr_of_stations);
-
     free(G);
 }
