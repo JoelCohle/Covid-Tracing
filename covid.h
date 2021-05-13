@@ -49,7 +49,7 @@ struct Station {
     ll station_no;
     ll no_of_people;
     double danger_value;
-    Node* ptr_to_ll_of_neighbours; // pointer to the linked list of meighbours
+    Node* ptr_to_ll_of_neighbours; // pointer to the linked list of neighbours
 };
 
 
