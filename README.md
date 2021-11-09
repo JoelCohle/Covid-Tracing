@@ -16,7 +16,7 @@
 
 6. All queries on a particular day are made after all movements on said day. This is to ensure Uniformity of input.
 
-7. The list of all Primary and Secondary Contacts in a Day are printed at the end of the Day (**TASK 1**)
+7. The list of all Primary and Secondary Contacts in a Day are printed at the end of the Day 
 
 >## Instructions for input format:
 
@@ -38,11 +38,11 @@
 
 2. The input **“numq”** asks the number of queries the user wants to input which is naturally followed by a string input **“query”** asking for the type of query required.  
 
-3. Query types: (**TASK 3**)
+3. Query types: 
     *   **status**  : User inputs integer **personID**. Program Outputs status of said person.
     *   **location**: User inputs integer **personID**. Program Outputs location of said person.
     *   **list**    : User inputs integer **station_num**. Program Outputs list of all people at the station along with their status.
 
-### Final Input (**TASK 2**):
+### Final Input:
 
 1. User inputs 2 space-separated integers  **U, V** and program outputs top 3 safest and shortest paths between **U** and **V**.
